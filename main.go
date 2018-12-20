@@ -15,6 +15,7 @@ func main() {
 	r.Use(middleware.LoggingMiddleware)
 
 	v1 := r.PathPrefix("/api/v1").Subrouter()
+	routes.InitTodoRoutes(v1)
 	routes.InitUserRoutes(v1)
 
 	port := os.Getenv("PORT")
