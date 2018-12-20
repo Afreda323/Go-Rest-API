@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"todo/middleware"
+	"todo/routes"
 
 	"github.com/gorilla/mux"
 )
@@ -12,6 +13,9 @@ import (
 func main() {
 	r := mux.NewRouter()
 	r.Use(middleware.LoggingMiddleware)
+
+	v1 := r.PathPrefix("/api/v1").Subrouter()
+	routes.InitUserRoutes(v1)
 
 	port := os.Getenv("PORT")
 	if port == "" {
