@@ -1,11 +1,12 @@
-package db
+package models
 
 import (
 	"fmt"
 	"os"
-	"todo/models"
 
 	"github.com/jinzhu/gorm"
+	// postgres for gorm
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
 )
 
@@ -38,7 +39,7 @@ func init() {
 
 	db = conn
 
-	db.Debug().AutoMigrate(&models.User{})
+	db.Debug().AutoMigrate(&User{})
 }
 
 // GetDB - Get the connected instance of the db
