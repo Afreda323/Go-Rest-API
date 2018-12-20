@@ -2,6 +2,7 @@ package routes
 
 import (
 	"todo/controllers"
+	"todo/middleware"
 
 	"github.com/gorilla/mux"
 )
@@ -10,6 +11,7 @@ import (
 func InitTodoRoutes(r *mux.Router) {
 	s := r.PathPrefix("/todos").Subrouter()
 
+	s.Use(middleware.JwtMiddleware) // all routes are protected
 	s.HandleFunc("/", controllers.GetTodo).Methods("GET")
 	s.HandleFunc("/{id}", controllers.GetTodos).Methods("GET")
 	s.HandleFunc("/", controllers.CreateTodo).Methods("POST")
