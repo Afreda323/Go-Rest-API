@@ -7,8 +7,9 @@ import (
 // Todo struct
 type Todo struct {
 	gorm.Model
-	Value  string `json:"value"`
-	UserID uint   `json:"user_id"`
+	Value     string `json:"value"`
+	Completed bool   `json:"completed"`
+	UserID    uint   `json:"user_id"`
 }
 
 // Validate that all values are present
