@@ -17,5 +17,13 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 
 // LogIn - POST /api/v1/users/login
 func LogIn(w http.ResponseWriter, r *http.Request) {
+	user := &models.User{}
+	err := json.NewDecoder(r.Body).Decode(user) // pipe body into user model
 
+	if err != nil {
+		utils.Respond(w, utils.Message(false, "Login Failed")) // something went wrong
+	} else {
+		resp := models.Login(user.Email, user.Password)
+		utils.Respond(w, resp)
+	}
 }

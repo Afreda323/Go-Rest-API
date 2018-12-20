@@ -25,6 +25,13 @@ type User struct {
 	Token    string `json:"token";sql:"-"`
 }
 
+func genToken(u *User) string {
+	tk := &Token{UserID: u.ID}
+	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), tk)
+	signed, _ := token.SignedString([]byte(os.Getenv("token_password")))
+	return signed
+}
+
 // Validate if all values are present
 // make sure user does not exist
 func (u *User) Validate() (map[string]interface{}, bool) {
@@ -64,11 +71,7 @@ func (u *User) CreateUser() map[string]interface{} {
 	GetDB().Create(u)           // save to db
 	u.Password = ""             // dont send password back
 
-	tk := &Token{UserID: u.ID}
-	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), tk)
-	signed, _ := token.SignedString([]byte(os.Getenv("token_password")))
-
-	u.Token = signed
+	u.Token = genToken(u)
 
 	resp := utils.Message(true, "User created")
 	resp["user"] = u
@@ -77,11 +80,43 @@ func (u *User) CreateUser() map[string]interface{} {
 }
 
 // Login user, get jwt
-func Login(email string, password string) {
+func Login(email string, password string) map[string]interface{} {
+	user := &User{}
+	err := GetDB().Table("users").Where("email = ?", email).First(user).Error
 
+	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return utils.Message(false, "User does not exist")
+		}
+		return utils.Message(false, "Something went wrong")
+	}
+
+	if user.ID <= 0 {
+		return utils.Message(false, "Something went wrong")
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	if err != nil && err == bcrypt.ErrMismatchedHashAndPassword {
+		return utils.Message(false, "Incorrect Password")
+	}
+
+	user.Token = genToken(user)
+	user.Password = ""
+	resp := utils.Message(true, "Logged in")
+	resp["user"] = user
+
+	return resp
 }
 
 // GetUser by ID
-func GetUser(id uint) {
+func GetUser(id uint) *User {
+	user := &User{}
+	GetDB().Table("users").Where("id = ?", id).First(user)
 
+	if user.Email == "" {
+		return nil
+	}
+
+	user.Password = ""
+	return user
 }
