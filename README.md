@@ -8,9 +8,9 @@ Create a ```.env``` file using the ```.env.schema```.  Make sure all of the valu
 
 Then in the terminal run ```go run main.go```
 
-## Routes
+## Routes 
 
-### Sign Up
+## Sign Up
 
 Create an account, saved to database. JWT response
 
@@ -25,7 +25,7 @@ Create an account, saved to database. JWT response
 |email   |```String```| ```true```|
 |password|```String```| ```true```|
 
-### Example
+#### Example
 
 ##### Request
 
@@ -52,7 +52,9 @@ Create an account, saved to database. JWT response
 }
 ```
 
-### Log In
+---
+
+## Log In
 
 Log into an existing account. JWT response
 
@@ -67,7 +69,7 @@ Log into an existing account. JWT response
 |email   |```String```| ```true```|
 |password|```String```| ```true```|
 
-### Example
+#### Example
 
 ##### Request
 
@@ -94,7 +96,9 @@ Log into an existing account. JWT response
 }
 ```
 
-### Create Todo
+---
+
+## Create Todo
 
 Save a todo to the database.
 
@@ -113,7 +117,7 @@ Save a todo to the database.
 |:-------|:-----------|:----------|
 |value   |```String```| ```true```|
 
-### Example
+#### Example
 
 ##### Request
 
@@ -123,7 +127,9 @@ Save a todo to the database.
 
 ```Coming soon...```
 
-### Get Todos
+---
+
+## Get Todos
 
 Retrieve all of your todos from the database
 
@@ -136,7 +142,7 @@ Retrieve all of your todos from the database
 |:------------|:-------------|:----------|
 |Authorization|Bearer {Token}| ```true```|
 
-### Example
+#### Example
 
 ##### Request
 
@@ -146,7 +152,9 @@ Retrieve all of your todos from the database
 
 ```Coming soon...```
 
-### Get Todo
+---
+
+## Get Todo
 
 Retrieve a single todo from the database
 
@@ -165,7 +173,7 @@ Retrieve a single todo from the database
 |:-------|:-----------|:----------|:---------- |
 |id      |```Int```   | ```true```| ID of Todo |
 
-### Example
+#### Example
 
 ##### Request
 
@@ -175,7 +183,9 @@ Retrieve a single todo from the database
 
 ```Coming soon...```
 
-### Update Todo
+---
+
+## Update Todo
 
 Edit and save a todo to the database.
 
@@ -200,7 +210,7 @@ Edit and save a todo to the database.
 |:-------|:-----------|:----------|
 |value   |```String```| ```true```|
 
-### Example
+#### Example
 
 ##### Request
 
@@ -210,7 +220,9 @@ Edit and save a todo to the database.
 
 ```Coming soon...```
 
-### Delete Todo
+---
+
+## Delete Todo
 
 Remove your todo from the database
 
@@ -235,7 +247,7 @@ Remove your todo from the database
 |:-------|:-----------|:----------|
 |value   |```String```| ```true```|
 
-### Example
+#### Example
 
 ##### Request
 
