@@ -40,7 +40,13 @@ func GetTodos(w http.ResponseWriter, r *http.Request) {
 
 // GetTodo - GET /api/v1/todos/{id}
 func GetTodo(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	todoID, _ := strconv.ParseUint(vars["id"], 10, 64)
+	userID := r.Context().Value("user").(uint)
 
+	resp := models.GetTodo(uint(todoID), userID)
+
+	utils.Respond(w, resp)
 }
 
 // EditTodo - PATCH /api/v1/todos/{id}
@@ -65,5 +71,12 @@ func EditTodo(w http.ResponseWriter, r *http.Request) {
 
 // DeleteTodo - DELETE /api/v1/todos/{id}
 func DeleteTodo(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	todoID, _ := strconv.ParseUint(vars["id"], 10, 64)
+	userID := r.Context().Value("user").(uint)
+
+	resp := models.RemoveTodo(uint(todoID), userID)
+
+	utils.Respond(w, resp)
 
 }

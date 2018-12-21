@@ -74,8 +74,17 @@ func (todo *Todo) EditTodo() map[string]interface{} {
 }
 
 // RemoveTodo from db
-func (todo *Todo) RemoveTodo() {
+func RemoveTodo(id uint, user uint) map[string]interface{} {
+	todo := &Todo{}
+	err := GetDB().Table("todos").Where("user_id = ? AND id = ?", user, id).First(todo).Error
+	if err != nil && err == gorm.ErrRecordNotFound {
+		return utils.Message(false, "Todo does not exist")
+	}
 
+	GetDB().Delete(todo)
+
+	resp := utils.Message(true, "Todo Deleted")
+	return resp
 }
 
 // GetTodos - returns all for user
@@ -90,6 +99,14 @@ func GetTodos(user uint) []*Todo {
 }
 
 // GetTodo by id
-func GetTodo(id uint) {
+func GetTodo(id uint, user uint) map[string]interface{} {
+	todo := &Todo{}
+	err := GetDB().Table("todos").Where("user_id = ? AND id = ?", user, id).Find(todo).Error
+	if err != nil && err == gorm.ErrRecordNotFound {
+		return utils.Message(false, "Todo does not exist")
+	}
 
+	resp := utils.Message(true, "Todo Found")
+	resp["data"] = todo
+	return resp
 }

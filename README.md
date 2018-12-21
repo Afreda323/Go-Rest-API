@@ -299,9 +299,12 @@ Remove your todo from the database
 
 ##### Request
 
-```Coming soon...```
-
 ##### Response
 
-```Coming soon...```
+```json
+{
+    "message": "Todo does not exist",
+    "status": false
+}
+```
 
