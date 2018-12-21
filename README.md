@@ -121,11 +121,29 @@ Save a todo to the database.
 
 ##### Request
 
-```Coming soon...```
+```json
+{
+	"value": "I am test 2"
+}
+```
 
 ##### Response
 
-```Coming soon...```
+```json
+{
+    "message": "Todo Saved",
+    "status": true,
+    "todo": {
+        "ID": 4,
+        "CreatedAt": "2018-12-20T20:21:40.772308-05:00",
+        "UpdatedAt": "2018-12-20T20:21:40.772308-05:00",
+        "DeletedAt": null,
+        "value": "I am test 2",
+        "completed": false,
+        "user_id": 1
+    }
+}
+```
 
 ---
 
@@ -144,13 +162,25 @@ Retrieve all of your todos from the database
 
 #### Example
 
-##### Request
-
-```Coming soon...```
-
 ##### Response
 
-```Coming soon...```
+```json
+{
+    "data": [
+        {
+            "ID": 1,
+            "CreatedAt": "2018-12-20T19:44:03.477372-05:00",
+            "UpdatedAt": "2018-12-20T19:44:03.477372-05:00",
+            "DeletedAt": null,
+            "value": "I am todo",
+            "completed": false,
+            "user_id": 1
+        }
+    ],
+    "message": "Success",
+    "status": true
+}
+```
 
 ---
 
@@ -214,11 +244,29 @@ Edit and save a todo to the database.
 
 ##### Request
 
-```Coming soon...```
+```json
+{
+    "completed": true
+}
+```
 
 ##### Response
 
-```Coming soon...```
+```json
+{
+    "data": {
+        "ID": 2,
+        "CreatedAt": "2018-12-20T19:45:15.128387-05:00",
+        "UpdatedAt": "2018-12-20T19:45:15.128387-05:00",
+        "DeletedAt": null,
+        "value": "I am test",
+        "completed": true,
+        "user_id": 1
+    },
+    "message": "Todo Updated",
+    "status": true
+}
+```
 
 ---
 

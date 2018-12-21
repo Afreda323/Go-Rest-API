@@ -1,6 +1,9 @@
 package models
 
 import (
+	"fmt"
+	"todo/utils"
+
 	"github.com/jinzhu/gorm"
 )
 
@@ -13,18 +16,61 @@ type Todo struct {
 }
 
 // Validate that all values are present
-func (todo *Todo) Validate() {
+func (todo *Todo) Validate() (map[string]interface{}, bool) {
+	if todo.Value == "" {
+		return utils.Message(false, "Invalid TODO value"), false
+	}
 
+	if todo.UserID <= 0 {
+		return utils.Message(false, "Invalid User"), false
+	}
+
+	return utils.Message(true, "Valid"), true
 }
 
 // CreateTodo and save to db
-func (todo *Todo) CreateTodo() {
+func (todo *Todo) CreateTodo() map[string]interface{} {
+	if msg, ok := todo.Validate(); !ok {
+		return msg
+	}
 
+	todo.Completed = false
+
+	GetDB().Create(todo)
+
+	resp := utils.Message(true, "Todo Saved")
+	resp["todo"] = todo
+
+	return resp
 }
 
 // EditTodo and save to db
-func (todo *Todo) EditTodo() {
+func (todo *Todo) EditTodo() map[string]interface{} {
+	if msg, ok := todo.Validate(); !ok {
+		return msg
+	}
+	og := &Todo{}
+	err := GetDB().Table("todos").Where("id = ?", todo.ID).First(og).Error
 
+	if err != nil && err == gorm.ErrRecordNotFound {
+		resp := utils.Message(false, "Todo not found")
+		return resp
+	}
+
+	if todo.Completed != og.Completed {
+		og.Completed = todo.Completed
+	}
+
+	if todo.Value != og.Value {
+		og.Value = todo.Value
+	}
+
+	GetDB().Update(og)
+
+	resp := utils.Message(true, "Todo Updated")
+	resp["data"] = og
+
+	return resp
 }
 
 // RemoveTodo from db
@@ -33,8 +79,14 @@ func (todo *Todo) RemoveTodo() {
 }
 
 // GetTodos - returns all for user
-func GetTodos(user uint) {
-
+func GetTodos(user uint) []*Todo {
+	todos := make([]*Todo, 0)
+	err := GetDB().Table("todos").Where("user_id = ?", user).Find(&todos).Error
+	if err != nil {
+		fmt.Println("ERROR", err)
+		return nil
+	}
+	return todos
 }
 
 // GetTodo by id
