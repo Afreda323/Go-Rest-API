@@ -297,8 +297,6 @@ Remove your todo from the database
 
 #### Example
 
-##### Request
-
 ##### Response
 
 ```json
