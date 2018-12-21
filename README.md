@@ -42,7 +42,7 @@ Create an account, saved to database. JWT response
 {
     "message": "User created",
     "status": true,
-    "user": {
+    "data": {
         "ID": 2,
         "CreatedAt": "2018-12-20T15:15:19.489462-05:00",
         "UpdatedAt": "2018-12-20T15:15:19.489462-05:00",
@@ -52,7 +52,6 @@ Create an account, saved to database. JWT response
 }
 ```
 
----
 
 ## Log In
 
@@ -86,7 +85,7 @@ Log into an existing account. JWT response
 {
     "message": "Logged in",
     "status": true,
-    "user": {
+    "data": {
         "ID": 2,
         "CreatedAt": "2018-12-20T15:15:19.489462-05:00",
         "UpdatedAt": "2018-12-20T15:15:19.489462-05:00",
@@ -96,7 +95,6 @@ Log into an existing account. JWT response
 }
 ```
 
----
 
 ## Create Todo
 
@@ -133,7 +131,7 @@ Save a todo to the database.
 {
     "message": "Todo Saved",
     "status": true,
-    "todo": {
+    "data": {
         "ID": 4,
         "CreatedAt": "2018-12-20T20:21:40.772308-05:00",
         "UpdatedAt": "2018-12-20T20:21:40.772308-05:00",
@@ -145,7 +143,6 @@ Save a todo to the database.
 }
 ```
 
----
 
 ## Get Todos
 
@@ -182,7 +179,6 @@ Retrieve all of your todos from the database
 }
 ```
 
----
 
 ## Get Todo
 
@@ -205,15 +201,24 @@ Retrieve a single todo from the database
 
 #### Example
 
-##### Request
-
-```Coming soon...```
-
 ##### Response
 
-```Coming soon...```
+```json
+{
+    "data": {
+        "ID": 7,
+        "CreatedAt": "2018-12-20T20:40:55.647052-05:00",
+        "UpdatedAt": "2018-12-20T20:40:55.647052-05:00",
+        "DeletedAt": null,
+        "value": "I am test 3",
+        "completed": false,
+        "user_id": 3
+    },
+    "message": "Todo Found",
+    "status": true
+}
+```
 
----
 
 ## Update Todo
 
@@ -268,7 +273,6 @@ Edit and save a todo to the database.
 }
 ```
 
----
 
 ## Delete Todo
 

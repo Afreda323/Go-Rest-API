@@ -39,7 +39,7 @@ func (todo *Todo) CreateTodo() map[string]interface{} {
 	GetDB().Create(todo)
 
 	resp := utils.Message(true, "Todo Saved")
-	resp["todo"] = todo
+	resp["data"] = todo
 
 	return resp
 }

@@ -74,7 +74,7 @@ func (u *User) CreateUser() map[string]interface{} {
 	u.Token = genToken(u)
 
 	resp := utils.Message(true, "User created")
-	resp["user"] = u
+	resp["data"] = u
 
 	return resp
 }
@@ -103,7 +103,7 @@ func Login(email string, password string) map[string]interface{} {
 	user.Token = genToken(user)
 	user.Password = ""
 	resp := utils.Message(true, "Logged in")
-	resp["user"] = user
+	resp["data"] = user
 
 	return resp
 }

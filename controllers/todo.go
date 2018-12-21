@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 	"todo/models"
@@ -61,7 +60,6 @@ func EditTodo(w http.ResponseWriter, r *http.Request) {
 		utils.Respond(w, utils.Message(false, "Error parsing request"))
 	}
 	todo.UserID = userID
-	fmt.Println("UINT", todoID)
 	todo.ID = uint(todoID)
 
 	resp := todo.EditTodo()
